@@ -1,4 +1,4 @@
-# Algorithms Laboratory - CS39001
+# Design and Analysis of Algorithms [LAB] - CS39001
 
 This repository contains C programs for the **Algorithms Laboratory (CS39001)** course at KIIT University for the Autumn 2025 semester. The labs cover fundamental data structures and algorithmic techniques as outlined in the course manual.
 
