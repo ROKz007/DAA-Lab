@@ -8,6 +8,7 @@ This repository contains C programs for the **Algorithms Laboratory (CS39001)** 
 
 The programs are organized by "Day" folders, corresponding to the lab sessions.
 
+```
 .
 ├── .gitignore
 ├── Day1/
@@ -34,6 +35,7 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 ├── Day7/
 │   └── Lab7-1.c
 └── sample.c
+```
 
 
 ---
