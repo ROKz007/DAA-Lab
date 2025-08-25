@@ -1,4 +1,8 @@
 #include <stdio.h>
+/*
+Generate sample array of integers of user specified size.
+Also get it sorted in ascending or descending order based on user preference.
+*/
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
