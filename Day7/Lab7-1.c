@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 /*
 Define a struct person as follows:
 struct person
@@ -12,12 +15,7 @@ int weight;
 Write a menu driven program to read the data of ‘n’ students and store them in a dynamically allocated array of struct person.
 Implement the min-heap or max-heap and its operations based on the menu options.
 */
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-
-struct person
-{
+struct person {
     int id;
     char *name;
     int age;
@@ -27,7 +25,6 @@ struct person
 
 struct person *g_persons_array = NULL;
 int g_num_persons = 0;
-
 static int current_heap_type = 0;
 
 void freePersonData(struct person *p) {
@@ -44,18 +41,9 @@ void swapPersons(struct person *a, struct person *b) {
 }
 
 void minHeapifyAge(struct person arr[], int n, int i) {
-    int smallest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-
-    if (left < n && arr[left].age < arr[smallest].age) {
-        smallest = left;
-    }
-
-    if (right < n && arr[right].age < arr[smallest].age) {
-        smallest = right;
-    }
-
+    int smallest = i, left = 2 * i + 1, right = 2 * i + 2;
+    if (left < n && arr[left].age < arr[smallest].age) smallest = left;
+    if (right < n && arr[right].age < arr[smallest].age) smallest = right;
     if (smallest != i) {
         swapPersons(&arr[i], &arr[smallest]);
         minHeapifyAge(arr, n, smallest);
@@ -63,26 +51,22 @@ void minHeapifyAge(struct person arr[], int n, int i) {
 }
 
 void buildMinHeapAge(struct person arr[], int n) {
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        minHeapifyAge(arr, n, i);
-    }
+    for (int i = n / 2 - 1; i >= 0; i--) minHeapifyAge(arr, n, i);
     printf("Min-heap based on age created.\n");
     current_heap_type = 1;
 }
 
 void insertMinHeapAge(struct person arr[], int *n_ptr, struct person new_person) {
-    *n_ptr = *n_ptr + 1;
-    g_persons_array = (struct person *)realloc(g_persons_array, (*n_ptr) * sizeof(struct person));
+    *n_ptr += 1;
+    g_persons_array = realloc(g_persons_array, (*n_ptr) * sizeof(struct person));
     if (g_persons_array == NULL) {
-        printf("Memory reallocation failed during insertion!\n");
+        printf("Memory reallocation failed!\n");
         freePersonData(&new_person);
-        exit(EXIT_FAILURE);
+        exit(1);
     }
-
     int i = *n_ptr - 1;
     g_persons_array[i] = new_person;
-
-    while (i != 0 && g_persons_array[(i - 1) / 2].age > g_persons_array[i].age) {
+    while (i > 0 && g_persons_array[(i - 1) / 2].age > g_persons_array[i].age) {
         swapPersons(&g_persons_array[i], &g_persons_array[(i - 1) / 2]);
         i = (i - 1) / 2;
     }
@@ -90,18 +74,9 @@ void insertMinHeapAge(struct person arr[], int *n_ptr, struct person new_person)
 }
 
 void maxHeapifyWeight(struct person arr[], int n, int i) {
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-
-    if (left < n && arr[left].weight > arr[largest].weight) {
-        largest = left;
-    }
-
-    if (right < n && arr[right].weight > arr[largest].weight) {
-        largest = right;
-    }
-
+    int largest = i, left = 2 * i + 1, right = 2 * i + 2;
+    if (left < n && arr[left].weight > arr[largest].weight) largest = left;
+    if (right < n && arr[right].weight > arr[largest].weight) largest = right;
     if (largest != i) {
         swapPersons(&arr[i], &arr[largest]);
         maxHeapifyWeight(arr, n, largest);
@@ -109,64 +84,62 @@ void maxHeapifyWeight(struct person arr[], int n, int i) {
 }
 
 void buildMaxHeapWeight(struct person arr[], int n) {
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        maxHeapifyWeight(arr, n, i);
-    }
+    for (int i = n / 2 - 1; i >= 0; i--) maxHeapifyWeight(arr, n, i);
     printf("Max-heap based on weight created.\n");
     current_heap_type = 2;
+}
+
+void maxHeapifyAge(struct person arr[], int n, int i) {
+    int largest = i, left = 2 * i + 1, right = 2 * i + 2;
+    if (left < n && arr[left].age > arr[largest].age) largest = left;
+    if (right < n && arr[right].age > arr[largest].age) largest = right;
+    if (largest != i) {
+        swapPersons(&arr[i], &arr[largest]);
+        maxHeapifyAge(arr, n, largest);
+    }
+}
+
+void buildMaxHeapAge(struct person arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) maxHeapifyAge(arr, n, i);
 }
 
 void readData() {
     int n;
     printf("Enter the number of students: ");
     scanf("%d", &n);
-
     if (n <= 0) {
         printf("Number of students must be positive.\n");
         return;
     }
-
     if (g_persons_array != NULL) {
-        for (int i = 0; i < g_num_persons; i++) {
-            freePersonData(&g_persons_array[i]);
-        }
+        for (int i = 0; i < g_num_persons; i++) freePersonData(&g_persons_array[i]);
         free(g_persons_array);
         g_persons_array = NULL;
     }
-
-    g_persons_array = (struct person *)malloc(n * sizeof(struct person));
+    g_persons_array = malloc(n * sizeof(struct person));
     if (g_persons_array == NULL) {
         printf("Memory allocation failed!\n");
         g_num_persons = 0;
         current_heap_type = 0;
         return;
     }
-
     g_num_persons = n;
     current_heap_type = 0;
-
     printf("Enter details for %d students:\n", n);
     printf("Id Name Age Height Weight(pound)\n");
     for (int i = 0; i < n; i++) {
         g_persons_array[i].id = i;
         char temp_name[100];
-
         printf("%d ", i);
-        scanf("%s %d %d %d", temp_name,
-              &g_persons_array[i].age,
-              &g_persons_array[i].height,
-              &g_persons_array[i].weight);
-
+        scanf("%s %d %d %d", temp_name, &g_persons_array[i].age, &g_persons_array[i].height, &g_persons_array[i].weight);
         g_persons_array[i].name = strdup(temp_name);
         if (g_persons_array[i].name == NULL) {
-            printf("Memory allocation for name failed! Cleaning up and exiting.\n");
-            for (int j = 0; j <= i; j++) {
-                freePersonData(&g_persons_array[j]);
-            }
+            printf("Memory allocation for name failed!\n");
+            for (int j = 0; j <= i; j++) freePersonData(&g_persons_array[j]);
             free(g_persons_array);
             g_persons_array = NULL;
             g_num_persons = 0;
-            exit(EXIT_FAILURE);
+            exit(1);
         }
     }
     printf("Data read successfully.\n");
@@ -177,42 +150,32 @@ void displayWeightOfYoungestPerson() {
         printf("No student data available.\n");
         return;
     }
-
     if (current_heap_type != 1) {
-        printf("Min-heap based on age is not active. Building now to find the youngest...\n");
+        printf("Min-heap based on age not active. Building now...\n");
         buildMinHeapAge(g_persons_array, g_num_persons);
     }
-
     double weight_kg = g_persons_array[0].weight * 0.453592;
-    printf("Weight of youngest student (ID: %d, Name: %s, Age: %d): %.2f kg\n",
-           g_persons_array[0].id, g_persons_array[0].name, g_persons_array[0].age, weight_kg);
+    printf("Weight of youngest student (ID: %d, Name: %s, Age: %d): %.2f kg\n", g_persons_array[0].id, g_persons_array[0].name, g_persons_array[0].age, weight_kg);
 }
 
 void insertNewPersonIntoMinHeap() {
     if (g_num_persons == 0 || current_heap_type != 1) {
-        printf("Please read data and create a Min-heap based on age (Option 2) first to insert.\n");
+        printf("Please read data and create a Min-heap based on age first.\n");
         return;
     }
-
     struct person new_p;
     char temp_name[100];
-
     printf("Enter details for the new person:\n");
     printf("Name Age Height Weight(pound)\n");
-    scanf("%s %d %d %d", temp_name,
-          &new_p.age,
-          &new_p.height,
-          &new_p.weight);
-
+    scanf("%s %d %d %d", temp_name, &new_p.age, &new_p.height, &new_p.weight);
     new_p.id = g_num_persons;
     new_p.name = strdup(temp_name);
     if (new_p.name == NULL) {
-        printf("Memory allocation for new person's name failed!\n");
+        printf("Memory allocation for name failed!\n");
         return;
     }
-
     insertMinHeapAge(g_persons_array, &g_num_persons, new_p);
-    printf("New person inserted. Total number of persons: %d\n", g_num_persons);
+    printf("New person inserted. Total persons: %d\n", g_num_persons);
 }
 
 void deleteOldestPerson() {
@@ -220,62 +183,31 @@ void deleteOldestPerson() {
         printf("No student data available to delete.\n");
         return;
     }
-
-    int oldest_age = -1;
-    int oldest_idx = -1;
-
-    for (int i = 0; i < g_num_persons; i++) {
-        if (g_persons_array[i].age > oldest_age) {
-            oldest_age = g_persons_array[i].age;
-            oldest_idx = i;
+    printf("Building Max-heap on age to find and delete the oldest person...\n");
+    buildMaxHeapAge(g_persons_array, g_num_persons);
+    struct person oldest_person = g_persons_array[0];
+    printf("Deleting oldest person found: ID %d, Name %s, Age %d\n", oldest_person.id, oldest_person.name, oldest_person.age);
+    freePersonData(&oldest_person);
+    g_persons_array[0] = g_persons_array[g_num_persons - 1];
+    g_num_persons--;
+    if (g_num_persons > 0) {
+        g_persons_array = realloc(g_persons_array, g_num_persons * sizeof(struct person));
+        if (g_persons_array == NULL) {
+            printf("Memory reallocation failed after deletion! Program might be unstable.\n");
+            exit(1);
         }
-    }
-
-    if (oldest_idx != -1) {
-        printf("Deleting oldest person found: ID %d, Name %s, Age %d\n",
-               g_persons_array[oldest_idx].id, g_persons_array[oldest_idx].name, g_persons_array[oldest_idx].age);
-
-        freePersonData(&g_persons_array[oldest_idx]);
-
-        if (oldest_idx != g_num_persons - 1) {
-            g_persons_array[oldest_idx] = g_persons_array[g_num_persons - 1];
-        }
-
-        g_num_persons--;
-
-        if (g_num_persons > 0) {
-            g_persons_array = (struct person *)realloc(g_persons_array, g_num_persons * sizeof(struct person));
-            if (g_persons_array == NULL) {
-                printf("Memory reallocation failed after deletion! Program might be unstable.\n");
-                exit(EXIT_FAILURE);
-            }
-        } else {
-            free(g_persons_array);
-            g_persons_array = NULL;
-        }
-
-        printf("Oldest person deleted. Total number of persons: %d\n", g_num_persons);
-
-        if (g_num_persons > 0) {
-            if (current_heap_type == 1) {
-                printf("Rebuilding age-based min-heap after deletion...\n");
-                buildMinHeapAge(g_persons_array, g_num_persons);
-            } else if (current_heap_type == 2) {
-                printf("Rebuilding weight-based max-heap after deletion...\n");
-                buildMaxHeapWeight(g_persons_array, g_num_persons);
-            }
-        } else {
-             current_heap_type = 0;
-        }
-
+        maxHeapifyAge(g_persons_array, g_num_persons, 0);
+        printf("Max-heap rebuilt. Total persons: %d\n", g_num_persons);
     } else {
-        printf("Error: Could not find oldest person (array might be empty).\n");
+        free(g_persons_array);
+        g_persons_array = NULL;
+        printf("Last person deleted. Array is now empty.\n");
+        current_heap_type = 0;
     }
 }
 
 int main() {
     int choice;
-
     do {
         printf("\n--- MAIN MENU (HEAP) ---\n");
         printf("1. Read Data\n");
@@ -289,47 +221,29 @@ int main() {
         scanf("%d", &choice);
 
         switch (choice) {
-            case 1:
-                readData();
-                break;
+            case 1: readData(); break;
             case 2:
-                if (g_num_persons == 0) {
-                    printf("No data to create heap. Please read data first (Option 1).\n");
-                } else {
-                    buildMinHeapAge(g_persons_array, g_num_persons);
-                }
+                if (g_num_persons == 0) printf("No data to create heap.\n");
+                else buildMinHeapAge(g_persons_array, g_num_persons);
                 break;
             case 3:
-                if (g_num_persons == 0) {
-                    printf("No data to create heap. Please read data first (Option 1).\n");
-                } else {
-                    buildMaxHeapWeight(g_persons_array, g_num_persons);
-                }
+                if (g_num_persons == 0) printf("No data to create heap.\n");
+                else buildMaxHeapWeight(g_persons_array, g_num_persons);
                 break;
-            case 4:
-                displayWeightOfYoungestPerson();
-                break;
-            case 5:
-                insertNewPersonIntoMinHeap();
-                break;
-            case 6:
-                deleteOldestPerson();
-                break;
+            case 4: displayWeightOfYoungestPerson(); break;
+            case 5: insertNewPersonIntoMinHeap(); break;
+            case 6: deleteOldestPerson(); break;
             case 7:
-                printf("Exiting program. Freeing all allocated memory.\n");
+                printf("Exiting program. Freeing memory.\n");
                 if (g_persons_array != NULL) {
-                    for (int i = 0; i < g_num_persons; i++) {
-                        freePersonData(&g_persons_array[i]);
-                    }
+                    for (int i = 0; i < g_num_persons; i++) freePersonData(&g_persons_array[i]);
                     free(g_persons_array);
                     g_persons_array = NULL;
                 }
                 break;
-            default:
-                printf("Invalid option. Please try again.\n");
+            default: printf("Invalid option. Try again.\n");
         }
     } while (choice != 7);
-
     return 0;
 }
 /*
