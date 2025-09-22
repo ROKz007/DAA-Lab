@@ -34,6 +34,10 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 │   └── Lab6-2.c
 ├── Day7/
 │   └── Lab7-1.c
+├── Day9/
+│   └── Lab9-1.c
+├── Day10/
+│   └── Lab10-1.c
 └── sample.c
 ```
 
@@ -48,8 +52,12 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 ### Day 4: Recursion & Time Measurement
 ### Day 5: Sorting & Searching Algorithms
 ### Day 6: Divide and Conquer
+####    > Quick Sort
+####    > Max and Min Elements
 ### Day 7: Heap Data Structure
-### Day 8: Greedy Techniques
+### Day 8: Fractional Knapsack (Greedy Technique)
+### Day 9: Huffman Coding (Greedy Technique)
+### Day 10: Prim's Algorithm (Greedy Technique)
 
 ---
 
@@ -59,7 +67,7 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 
 ## My Progress
 
-I've successfully completed all assignments up to **Day 8**, including several additional programs from the lab manual. I'll be updating this repository regularly as I attend more lab classes and complete further assignments. Stay tuned for more algorithms! 🚀
+I've successfully completed all assignments up to **Day 10**, including several additional programs from the lab manual. I'll be updating this repository regularly as I attend more lab classes and complete further assignments. Stay tuned for more algorithms! 🚀
 
 ---
 
