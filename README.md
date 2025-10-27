@@ -64,6 +64,7 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 #### > Dijkstra's Algorithm
 ### Day 12: Dynamic Programming
 #### > Matrix Chain Multiplication
+#### > Longest Common Subsequence
 ---
 
 ## Utility Programs
