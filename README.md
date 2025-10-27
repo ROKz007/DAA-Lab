@@ -57,8 +57,13 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 ### Day 7: Heap Data Structure
 ### Day 8: Fractional Knapsack (Greedy Technique)
 ### Day 9: Huffman Coding (Greedy Technique)
-### Day 10: Prim's Algorithm (Greedy Technique)
-
+### Day 10: Minimum Spanning Tree (Greedy Technique)
+#### > Prim's Algorithm
+#### > Kruskal's Algorithm
+### Day 11: Single-Source Shortest Path
+#### > Dijkstra's Algorithm
+### Day 12: Dynamic Programming
+#### > Matrix Chain Multiplication
 ---
 
 ## Utility Programs
