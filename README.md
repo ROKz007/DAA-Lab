@@ -37,7 +37,15 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 ├── Day9/
 │   └── Lab9-1.c
 ├── Day10/
-│   └── Lab10-1.c
+│   ├── Lab10-1.c
+│   └── Lab10-2.c
+├── Day11/
+│   └── Lab11-1.c
+├── Day12/
+│   ├── Lab12-1.c
+│   └── Lab12-2.c
+├── Day13/
+│   └── Lab13-1.c
 └── sample.c
 ```
 
@@ -58,13 +66,15 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 ### Day 8: Fractional Knapsack (Greedy Technique)
 ### Day 9: Huffman Coding (Greedy Technique)
 ### Day 10: Minimum Spanning Tree (Greedy Technique)
-#### > Prim's Algorithm
-#### > Kruskal's Algorithm
+####    > Prim's Algorithm
+####    > Kruskal's Algorithm
 ### Day 11: Single-Source Shortest Path
-#### > Dijkstra's Algorithm
+####    > Dijkstra's Algorithm
 ### Day 12: Dynamic Programming
-#### > Matrix Chain Multiplication
-#### > Longest Common Subsequence
+####    > Matrix Chain Multiplication
+####    > Longest Common Subsequence
+### Day 13: Dynamic Programming
+####    > All-Pairs Shortest Path (Floyd-Warshall)
 ---
 
 ## Utility Programs
@@ -73,7 +83,7 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 
 ## My Progress
 
-I've successfully completed all assignments up to **Day 10**, including several additional programs from the lab manual. I'll be updating this repository regularly as I attend more lab classes and complete further assignments. Stay tuned for more algorithms! 🚀
+I've successfully completed all assignments up to **Day 13**, including several additional programs from the lab manual. I'll be updating this repository regularly as I attend more lab classes and complete further assignments. Stay tuned for more algorithms! 🚀
 
 ---
 
