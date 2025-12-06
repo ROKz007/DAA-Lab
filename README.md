@@ -83,7 +83,7 @@ The programs are organized by "Day" folders, corresponding to the lab sessions.
 
 ## My Progress
 
-I have successfully completed all assignments up to Day 13, which marks the conclusion of the Algorithms Laboratory (CS39001) course for the Autumn 2025 semester. This repository now contains the complete collection of programs implemented during the lab sessions, spanning from fundamental data structures to advanced dynamic programming algorithms. 🚀
+I have successfully completed all assignments up to **Day 13**, which marks the conclusion of the **Algorithms Laboratory (CS39001)** course for the **Autumn 2025 semester**. This repository now contains the complete collection of programs implemented during the lab sessions, spanning from fundamental data structures to advanced dynamic programming algorithms. 🚀
 
 ---
 
